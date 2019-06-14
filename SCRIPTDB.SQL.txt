@@ -1,0 +1,438 @@
+USE [Mercado_DB]
+GO
+/****** Object:  Table [dbo].[__MigrationHistory]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[__MigrationHistory](
+	[MigrationId] [nvarchar](150) NOT NULL,
+	[ContextKey] [nvarchar](300) NOT NULL,
+	[Model] [varbinary](max) NOT NULL,
+	[ProductVersion] [nvarchar](32) NOT NULL,
+ CONSTRAINT [PK_dbo.__MigrationHistory] PRIMARY KEY CLUSTERED 
+(
+	[MigrationId] ASC,
+	[ContextKey] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[Telefono]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Telefono](
+	[Telefonoid] [int] IDENTITY(1,1) NOT NULL,
+	[numeroCasa] [nvarchar](50) NOT NULL,
+	[numeroCelular] [nvarchar](50) NOT NULL,
+	[estado] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Telefono] PRIMARY KEY CLUSTERED 
+(
+	[Telefonoid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Provincia]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Provincia](
+	[Provinciaid] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [nvarchar](100) NOT NULL,
+ CONSTRAINT [PK_dbo.Provincia] PRIMARY KEY CLUSTERED 
+(
+	[Provinciaid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Departamento]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Departamento](
+	[Departamentoid] [int] IDENTITY(1,1) NOT NULL,
+	[descripcion] [nvarchar](100) NOT NULL,
+	[estado] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Departamento] PRIMARY KEY CLUSTERED 
+(
+	[Departamentoid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Marca]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Marca](
+	[Marcaid] [int] IDENTITY(1,1) NOT NULL,
+	[descripcion] [nvarchar](100) NOT NULL,
+	[estado] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Marca] PRIMARY KEY CLUSTERED 
+(
+	[Marcaid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Localidad]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Localidad](
+	[Localidadid] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [nvarchar](100) NOT NULL,
+	[ProvinciaId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Localidad] PRIMARY KEY CLUSTERED 
+(
+	[Localidadid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Direccion]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Direccion](
+	[Direccionid] [int] IDENTITY(1,1) NOT NULL,
+	[Provinciaid] [int] NOT NULL,
+	[Localidadid] [int] NOT NULL,
+	[Calle] [nvarchar](50) NOT NULL,
+	[Altura] [nvarchar](50) NOT NULL,
+	[Piso] [int] NOT NULL,
+	[estado] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Direccion] PRIMARY KEY CLUSTERED 
+(
+	[Direccionid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Clientes]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Clientes](
+	[Clienteid] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [nvarchar](100) NOT NULL,
+	[Apellido] [nvarchar](100) NOT NULL,
+	[estado] [bit] NOT NULL,
+	[tipoDocumento] [int] NOT NULL,
+	[Documento] [nvarchar](100) NOT NULL,
+	[Direccionid] [int] NOT NULL,
+	[TelefonoId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Clientes] PRIMARY KEY CLUSTERED 
+(
+	[Clienteid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Proveedores]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Proveedores](
+	[Proveedoresid] [int] IDENTITY(1,1) NOT NULL,
+	[nombre] [nvarchar](100) NOT NULL,
+	[Apellido] [nvarchar](100) NOT NULL,
+	[estado] [bit] NOT NULL,
+	[tipoDocumento] [int] NOT NULL,
+	[Documento] [nvarchar](100) NOT NULL,
+	[Direccionid] [int] NOT NULL,
+	[TelefonoId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Proveedores] PRIMARY KEY CLUSTERED 
+(
+	[Proveedoresid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuario]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuario](
+	[Usuarioid] [int] IDENTITY(1,1) NOT NULL,
+	[clave] [nvarchar](50) NOT NULL,
+	[nombre] [nvarchar](100) NOT NULL,
+	[Apellido] [nvarchar](100) NOT NULL,
+	[estado] [bit] NOT NULL,
+	[tipoDocumento] [int] NOT NULL,
+	[Documento] [nvarchar](100) NOT NULL,
+	[Direccionid] [int] NOT NULL,
+	[TelefonoId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Usuario] PRIMARY KEY CLUSTERED 
+(
+	[Usuarioid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Actividad]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Actividad](
+	[ActividadId] [int] IDENTITY(1,1) NOT NULL,
+	[Fecha] [nvarchar](25) NOT NULL,
+	[Usuarioid] [int] NOT NULL,
+	[estado] [bit] NOT NULL,
+ CONSTRAINT [PK_dbo.Actividad] PRIMARY KEY CLUSTERED 
+(
+	[ActividadId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Articulos]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Articulos](
+	[Articulosid] [int] IDENTITY(1,1) NOT NULL,
+	[Descripcion] [nvarchar](100) NOT NULL,
+	[precioBruto] [nvarchar](25) NOT NULL,
+	[precioNeto] [nvarchar](25) NOT NULL,
+	[porcentajeGanancia] [bigint] NOT NULL,
+	[MarcaId] [int] NOT NULL,
+	[estado] [bit] NOT NULL,
+	[Departamento_Departamentoid] [int] NULL,
+	[Proveedores_Proveedoresid] [int] NULL,
+ CONSTRAINT [PK_dbo.Articulos] PRIMARY KEY CLUSTERED 
+(
+	[Articulosid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Compras]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Compras](
+	[ActividadId] [int] NOT NULL,
+	[CompraId] [int] NOT NULL,
+	[ArticulosId] [int] NOT NULL,
+	[Proveedoresid] [int] NOT NULL,
+	[MontoTotal] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Compras] PRIMARY KEY CLUSTERED 
+(
+	[ActividadId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Stock]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Stock](
+	[StockId] [int] IDENTITY(1,1) NOT NULL,
+	[stockMinimo] [int] NOT NULL,
+	[stock] [int] NOT NULL,
+	[ArticulosId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Stock] PRIMARY KEY CLUSTERED 
+(
+	[StockId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Ventas]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Ventas](
+	[ActividadId] [int] NOT NULL,
+	[Clientes_Clienteid] [int] NULL,
+	[Ventasid] [int] NOT NULL,
+	[ArticulosId] [int] NOT NULL,
+	[Clientesid] [int] NOT NULL,
+	[MontoTotal] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.Ventas] PRIMARY KEY CLUSTERED 
+(
+	[ActividadId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[VentaArticuloes]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VentaArticuloes](
+	[Venta_ActividadId] [int] NOT NULL,
+	[Articulo_Articulosid] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.VentaArticuloes] PRIMARY KEY CLUSTERED 
+(
+	[Venta_ActividadId] ASC,
+	[Articulo_Articulosid] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ArticuloCompras]    Script Date: 06/14/2019 15:25:47 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ArticuloCompras](
+	[Articulo_Articulosid] [int] NOT NULL,
+	[Compras_ActividadId] [int] NOT NULL,
+ CONSTRAINT [PK_dbo.ArticuloCompras] PRIMARY KEY CLUSTERED 
+(
+	[Articulo_Articulosid] ASC,
+	[Compras_ActividadId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  ForeignKey [FK_dbo.Actividad_dbo.Usuario_Usuarioid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Actividad]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Actividad_dbo.Usuario_Usuarioid] FOREIGN KEY([Usuarioid])
+REFERENCES [dbo].[Usuario] ([Usuarioid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Actividad] CHECK CONSTRAINT [FK_dbo.Actividad_dbo.Usuario_Usuarioid]
+GO
+/****** Object:  ForeignKey [FK_dbo.ArticuloCompras_dbo.Articulos_Articulo_Articulosid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[ArticuloCompras]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArticuloCompras_dbo.Articulos_Articulo_Articulosid] FOREIGN KEY([Articulo_Articulosid])
+REFERENCES [dbo].[Articulos] ([Articulosid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[ArticuloCompras] CHECK CONSTRAINT [FK_dbo.ArticuloCompras_dbo.Articulos_Articulo_Articulosid]
+GO
+/****** Object:  ForeignKey [FK_dbo.ArticuloCompras_dbo.Compras_Compras_ActividadId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[ArticuloCompras]  WITH CHECK ADD  CONSTRAINT [FK_dbo.ArticuloCompras_dbo.Compras_Compras_ActividadId] FOREIGN KEY([Compras_ActividadId])
+REFERENCES [dbo].[Compras] ([ActividadId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[ArticuloCompras] CHECK CONSTRAINT [FK_dbo.ArticuloCompras_dbo.Compras_Compras_ActividadId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Articulos_dbo.Departamento_Departamento_Departamentoid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Articulos]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Articulos_dbo.Departamento_Departamento_Departamentoid] FOREIGN KEY([Departamento_Departamentoid])
+REFERENCES [dbo].[Departamento] ([Departamentoid])
+GO
+ALTER TABLE [dbo].[Articulos] CHECK CONSTRAINT [FK_dbo.Articulos_dbo.Departamento_Departamento_Departamentoid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Articulos_dbo.Marca_MarcaId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Articulos]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Articulos_dbo.Marca_MarcaId] FOREIGN KEY([MarcaId])
+REFERENCES [dbo].[Marca] ([Marcaid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Articulos] CHECK CONSTRAINT [FK_dbo.Articulos_dbo.Marca_MarcaId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Articulos_dbo.Proveedores_Proveedores_Proveedoresid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Articulos]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Articulos_dbo.Proveedores_Proveedores_Proveedoresid] FOREIGN KEY([Proveedores_Proveedoresid])
+REFERENCES [dbo].[Proveedores] ([Proveedoresid])
+GO
+ALTER TABLE [dbo].[Articulos] CHECK CONSTRAINT [FK_dbo.Articulos_dbo.Proveedores_Proveedores_Proveedoresid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Clientes_dbo.Direccion_Direccionid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Clientes_dbo.Direccion_Direccionid] FOREIGN KEY([Direccionid])
+REFERENCES [dbo].[Direccion] ([Direccionid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_dbo.Clientes_dbo.Direccion_Direccionid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Clientes_dbo.Telefono_TelefonoId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Clientes]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Clientes_dbo.Telefono_TelefonoId] FOREIGN KEY([TelefonoId])
+REFERENCES [dbo].[Telefono] ([Telefonoid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Clientes] CHECK CONSTRAINT [FK_dbo.Clientes_dbo.Telefono_TelefonoId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Compras_dbo.Actividad_ActividadId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Compras]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Compras_dbo.Actividad_ActividadId] FOREIGN KEY([ActividadId])
+REFERENCES [dbo].[Actividad] ([ActividadId])
+GO
+ALTER TABLE [dbo].[Compras] CHECK CONSTRAINT [FK_dbo.Compras_dbo.Actividad_ActividadId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Compras_dbo.Proveedores_Proveedoresid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Compras]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Compras_dbo.Proveedores_Proveedoresid] FOREIGN KEY([Proveedoresid])
+REFERENCES [dbo].[Proveedores] ([Proveedoresid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Compras] CHECK CONSTRAINT [FK_dbo.Compras_dbo.Proveedores_Proveedoresid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Direccion_dbo.Localidad_Localidadid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Direccion]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Direccion_dbo.Localidad_Localidadid] FOREIGN KEY([Localidadid])
+REFERENCES [dbo].[Localidad] ([Localidadid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Direccion] CHECK CONSTRAINT [FK_dbo.Direccion_dbo.Localidad_Localidadid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Direccion_dbo.Provincia_Provinciaid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Direccion]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Direccion_dbo.Provincia_Provinciaid] FOREIGN KEY([Provinciaid])
+REFERENCES [dbo].[Provincia] ([Provinciaid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Direccion] CHECK CONSTRAINT [FK_dbo.Direccion_dbo.Provincia_Provinciaid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Proveedores_dbo.Direccion_Direccionid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Proveedores_dbo.Direccion_Direccionid] FOREIGN KEY([Direccionid])
+REFERENCES [dbo].[Direccion] ([Direccionid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_dbo.Proveedores_dbo.Direccion_Direccionid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Proveedores_dbo.Telefono_TelefonoId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Proveedores]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Proveedores_dbo.Telefono_TelefonoId] FOREIGN KEY([TelefonoId])
+REFERENCES [dbo].[Telefono] ([Telefonoid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Proveedores] CHECK CONSTRAINT [FK_dbo.Proveedores_dbo.Telefono_TelefonoId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Stock_dbo.Articulos_ArticulosId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Stock]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Stock_dbo.Articulos_ArticulosId] FOREIGN KEY([ArticulosId])
+REFERENCES [dbo].[Articulos] ([Articulosid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Stock] CHECK CONSTRAINT [FK_dbo.Stock_dbo.Articulos_ArticulosId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Usuario_dbo.Direccion_Direccionid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Usuario_dbo.Direccion_Direccionid] FOREIGN KEY([Direccionid])
+REFERENCES [dbo].[Direccion] ([Direccionid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_dbo.Usuario_dbo.Direccion_Direccionid]
+GO
+/****** Object:  ForeignKey [FK_dbo.Usuario_dbo.Telefono_TelefonoId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Usuario]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Usuario_dbo.Telefono_TelefonoId] FOREIGN KEY([TelefonoId])
+REFERENCES [dbo].[Telefono] ([Telefonoid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[Usuario] CHECK CONSTRAINT [FK_dbo.Usuario_dbo.Telefono_TelefonoId]
+GO
+/****** Object:  ForeignKey [FK_dbo.VentaArticuloes_dbo.Articulos_Articulo_Articulosid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[VentaArticuloes]  WITH CHECK ADD  CONSTRAINT [FK_dbo.VentaArticuloes_dbo.Articulos_Articulo_Articulosid] FOREIGN KEY([Articulo_Articulosid])
+REFERENCES [dbo].[Articulos] ([Articulosid])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[VentaArticuloes] CHECK CONSTRAINT [FK_dbo.VentaArticuloes_dbo.Articulos_Articulo_Articulosid]
+GO
+/****** Object:  ForeignKey [FK_dbo.VentaArticuloes_dbo.Ventas_Venta_ActividadId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[VentaArticuloes]  WITH CHECK ADD  CONSTRAINT [FK_dbo.VentaArticuloes_dbo.Ventas_Venta_ActividadId] FOREIGN KEY([Venta_ActividadId])
+REFERENCES [dbo].[Ventas] ([ActividadId])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[VentaArticuloes] CHECK CONSTRAINT [FK_dbo.VentaArticuloes_dbo.Ventas_Venta_ActividadId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Ventas_dbo.Actividad_ActividadId]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Ventas_dbo.Actividad_ActividadId] FOREIGN KEY([ActividadId])
+REFERENCES [dbo].[Actividad] ([ActividadId])
+GO
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_dbo.Ventas_dbo.Actividad_ActividadId]
+GO
+/****** Object:  ForeignKey [FK_dbo.Ventas_dbo.Clientes_Clientes_Clienteid]    Script Date: 06/14/2019 15:25:47 ******/
+ALTER TABLE [dbo].[Ventas]  WITH CHECK ADD  CONSTRAINT [FK_dbo.Ventas_dbo.Clientes_Clientes_Clienteid] FOREIGN KEY([Clientes_Clienteid])
+REFERENCES [dbo].[Clientes] ([Clienteid])
+GO
+ALTER TABLE [dbo].[Ventas] CHECK CONSTRAINT [FK_dbo.Ventas_dbo.Clientes_Clientes_Clienteid]
+GO
